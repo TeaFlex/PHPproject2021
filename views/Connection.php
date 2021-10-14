@@ -1,4 +1,4 @@
-<form action="POST">
+<form action="controller/" method="POST">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email"/>
     <label for="password">Password:</label>
