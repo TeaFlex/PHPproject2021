@@ -9,9 +9,11 @@ include_once "controller/ErrorController.php";
 
 class IndexRouter {
 
+    public $controllers;
+
     function __construct() {
 
-        $controllers = [
+        $this->controllers = [
             'connection' => new ConnectionController(),
             'registration' => new RegistrationController(),
             'film' => new FilmController(),
@@ -27,21 +29,32 @@ class IndexRouter {
         //handle the actions of each pages
         if(isset($action) && $action) {
             $action = strtolower($action);
-            if(in_array($action, array_keys($controllers))) {
-                $controllers[$action]->handler();
-            }
-            $controllers[$action]->handler();
+            $action = strtolower($action);
+            if($this->isInControllers($action)) 
+                $this->controllers[$action]->handler();
+            $this->controllers[$action]->handler();
         }
         
 
         //handle the view of each pages
-        if(!(isset($page) && $page))
+        if(isset($page) && $page) {
+            $page = strtolower($page);
+            if(!$this->isInControllers($page)) 
+                $page = "home";
+        }
+        else
             $page = "home";
+            
+        //check the connection
         // if(!(isset($connected) && $connected)) {
         //     if($page != "connection" && $page != "registration")
         //         $page = "connection";
         // }   
-        $controllers[$page]->index();
+        $this->controllers[$page]->index();
+    }
+
+    function isInControllers($input) {
+        return in_array($input, array_keys($this->controllers));
     }
 }
 

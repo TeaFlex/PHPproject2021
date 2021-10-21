@@ -10,12 +10,17 @@ abstract class BaseController {
     }
 
     /**
+     * Method executed when a page is requested.
      * By default, return the view associated to the controller
      */
     function index() {
         self::getView($_GET['page']);
     }
     
+    /**
+     * Method executed when an action is requested.
+     * It needs to be implemented.
+     */
     abstract function handler();
 
     static public function getView(string $view, mixed $data="") {
