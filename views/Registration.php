@@ -10,3 +10,6 @@
     <input type="password" name="rpassword" id="rpassword"/>
     <input type="submit" value="S'enregistrer">
 </form>
+<div>
+    Vous possédez déjà un compte ? <a href="index.php?page=connection">Connectez-vous !</a>
+</div>

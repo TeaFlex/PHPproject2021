@@ -23,6 +23,15 @@ abstract class BaseController {
      */
     abstract function handler();
 
+    static public function redirect(string $path) {
+        header("Location: ".$path);
+        exit();
+    }
+
+    static public function redirectToPage(string $page) {
+        self::redirect("index.php?page=".$page);
+    }
+
     static public function getView(string $view, mixed $data="") {
         $path = self::getComputedPath($view);
         ob_start();

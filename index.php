@@ -35,22 +35,22 @@ class IndexRouter {
             $this->controllers[$action]->handler();
         }
         
-
         //handle the view of each pages
         if(isset($page) && $page) {
             $page = strtolower($page);
             if(!$this->isInControllers($page)) 
-                $page = "home";
+                BaseController::redirectToPage("home");
+            $this->controllers[$page]->index();
         }
         else
-            $page = "home";
+            BaseController::redirectToPage("home");
             
         //check the connection
-        // if(!(isset($connected) && $connected)) {
-        //     if($page != "connection" && $page != "registration")
-        //         $page = "connection";
-        // }   
-        $this->controllers[$page]->index();
+        if(!(isset($connected) && $connected)) {
+            if($page != "connection" && $page != "registration")
+                BaseController::redirectToPage("connection");
+        }   
+        
     }
 
     function isInControllers($input) {
