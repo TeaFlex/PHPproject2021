@@ -36,7 +36,6 @@ class IndexRouter {
         //handle the actions of each pages
         if(isset($action) && $action) {
             $action = strtolower($action);
-            $action = strtolower($action);
             if($action == 'disconnect')
                 $this->disconnect();
             if($this->isInControllers($action)) 
@@ -77,5 +76,6 @@ class IndexRouter {
 try {
     new IndexRouter();
 } catch (\Throwable $th) {
-    BaseController::getView("error", ['error' => $th]);
+    $_SESSION['error'] = $th;
+    BaseController::redirectToPage('error');
 }

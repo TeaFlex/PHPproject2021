@@ -14,7 +14,10 @@ abstract class BaseController {
      * By default, return the view associated to the controller
      */
     function index() {
-        self::getView($_GET['page']);
+        if(isset($_SESSION['error']) && $_SESSION['error'])
+            self::getView($_GET['page'], $_SESSION['error']);
+        else
+            self::getView($_GET['page']);
     }
     
     /**

@@ -4,13 +4,6 @@ include_once './model/AccessSQL.php';
 
 class RegistrationController extends BaseController {
 
-    function index() {
-        if(isset($_SESSION['error']) && $_SESSION['error'])
-            self::getView($_GET['page'], $_SESSION['error']);
-        else
-            parent::index();
-    }
-
     function handler() {
         $fields = [
             'pseudo' => &$_POST['pseudo'],
@@ -43,23 +36,24 @@ class RegistrationController extends BaseController {
         } catch (\Throwable $th) {
             $_SESSION['error'] = $th->getMessage();
             self::redirectToPage("registration");
-            //echo $th;
         }
 
-        $sql = new AccessSQL();
-        $sql->init();
-        $sql->insertInto('users', [
-            "user_name" => $fields['pseudo'],
-            "user_hashpwd" => password_hash($fields['pwd'], null),
-            "user_email" => strtolower($fields['email'])
-        ]);
-        $sql = null;
-        
-        // debug lines
-        // print_r($fields);
-        // echo count($fields);
-        // exit();
+        try {
+            $sql = new AccessSQL();
+            $sql->init();
+            $sql->insertInto('users', [
+                "user_name" => $fields['pseudo'],
+                "user_hashpwd" => password_hash($fields['pwd'], null),
+                "user_email" => strtolower($fields['email'])
+            ]);
+            $sql = null;
+            
+            $_SESSION['success'] = "Inscription réussie, vous pouvez vous connecter !";
+            self::redirectToPage("connection");
 
-        self::redirectToPage("connection");
+        } catch (\PDOException $th) {
+            $_SESSION['error'] = "L'adresse électronique {$fields['email']} existe déjà.";
+            self::redirectToPage("registration");
+        }
     }
 }

@@ -37,6 +37,10 @@ class AccessSQL {
         return $res;
     }
 
+    function getDB() {
+        return $this->db;
+    }
+
     function __destruct() {
         $this->db = null;
     }
