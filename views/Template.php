@@ -1,6 +1,7 @@
 <?php
     $defaultTitle = "Mon site";
     $defaultContent = "No content";
+    $data = null;
 ?>
 
 <!DOCTYPE html>

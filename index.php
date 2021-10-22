@@ -13,6 +13,11 @@ class IndexRouter {
 
     function __construct() {
 
+        if(session_status() != PHP_SESSION_ACTIVE) {
+            session_start();
+            session_reset();
+        }
+
         $this->controllers = [
             'connection' => new ConnectionController(),
             'registration' => new RegistrationController(),
@@ -25,21 +30,24 @@ class IndexRouter {
         $page = &$_GET['page'];
         $action = &$_GET['action'];
         $connected = &$_SESSION['connected'];
+        $errormsg = &$_SESSION['error'];
+        $successmsg = &$_SESSION['success'];
 
         //handle the actions of each pages
         if(isset($action) && $action) {
             $action = strtolower($action);
             $action = strtolower($action);
+            if($action == 'disconnect')
+                $this->disconnect();
             if($this->isInControllers($action)) 
                 $this->controllers[$action]->handler();
-            $this->controllers[$action]->handler();
         }
         
         //handle the view of each pages
         if(isset($page) && $page) {
             $page = strtolower($page);
             if(!$this->isInControllers($page)) 
-                BaseController::redirectToPage("home");
+                $page = "home";
             $this->controllers[$page]->index();
         }
         else
@@ -49,17 +57,25 @@ class IndexRouter {
         if(!(isset($connected) && $connected)) {
             if($page != "connection" && $page != "registration")
                 BaseController::redirectToPage("connection");
-        }   
+        }
         
+        //clear messages
+        $errormsg = null;
+        $successmsg = null;
     }
 
     function isInControllers($input) {
         return in_array($input, array_keys($this->controllers));
+    }
+
+    function disconnect() {
+        session_unset();
+        session_destroy();
     }
 }
 
 try {
     new IndexRouter();
 } catch (\Throwable $th) {
-    BaseController::getView("error", $th);
+    BaseController::getView("error", ['error' => $th]);
 }

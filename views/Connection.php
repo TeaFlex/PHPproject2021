@@ -1,4 +1,5 @@
 <h3>Connexion</h3>
+<span class="success"><?= $data ?></span>
 <form action="index.php?action=connection" method="post">
     <label for="email">Email:</label>
     <input type="email" name="email" id="email"/>

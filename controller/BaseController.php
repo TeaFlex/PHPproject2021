@@ -32,7 +32,7 @@ abstract class BaseController {
         self::redirect("index.php?page=".$page);
     }
 
-    static public function getView(string $view, mixed $data="") {
+    static public function getView(string $view, mixed $data = "") {
         $path = self::getComputedPath($view);
         ob_start();
         if($view != "Template" && file_exists($path))
@@ -52,5 +52,12 @@ abstract class BaseController {
         $sql = new AccessSQL();
         $sql->init();
         return $sql;
+    }
+
+    static protected function sanitize(string &$input) {
+        $input = stripcslashes($input);
+        $input = trim($input);
+        $input = htmlspecialchars($input);
+        return $input;
     }
 }

@@ -6,3 +6,11 @@ form * {
 form input {
     margin-bottom: 0.5em;
 }
+
+form label, form input[type="submit"] {
+    user-select: none;
+}
+
+.error {
+    color: red;
+}

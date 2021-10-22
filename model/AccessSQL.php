@@ -1,6 +1,7 @@
 <?php
 
 class AccessSQL {
+    
     private PDO | null $db = null;
     private $host = "localhost";
     private $user = "root";
@@ -23,6 +24,17 @@ class AccessSQL {
         foreach ($values as $key => $value) 
             $req->bindValue(":{$key}", $value);
         $req->execute();
+        $req->closeCursor();
+    }
+
+    function getAllEntries(string $table) {
+        $sql = "SELECT * from $table";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_OBJ);
+        $res = $req->fetchAll();
+        $req->closeCursor();
+        return $res;
     }
 
     function __destruct() {
