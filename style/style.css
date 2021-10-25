@@ -46,3 +46,34 @@ form label, form input[type="submit"] {
 .full-h {
     min-height: 100vh;
 }
+
+.elephant {
+    animation-name: running;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes running {
+    0% {
+        transform: translateX(60vw);
+    }
+    40%{
+        transform: translate(0);
+    }
+    /*42% {
+        transform: rotate(0) translateY(0);
+    }
+    50% {
+        transform: rotate(180deg) translateY(10px);
+    }
+    57% {
+        transform: rotate(360deg) translateY(0);
+    } */
+    60% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-60vw);
+    }
+}

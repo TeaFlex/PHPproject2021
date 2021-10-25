@@ -1,6 +1,7 @@
 <div class="center">
     <h3>Connexion</h3>
-    <span style="font-style: italic;">powered by</span> <img src="assets/icons/elephpant.gif" alt="funny elephant"/>
+    <span style="font-style: italic;">powered by</span> 
+    <img src="assets/icons/elephpant.gif" alt="funny elephant" class="elephant"/>
     <span class="success"><?= $data['success'] ?></span>
     <span class="error"><?= $data['error'] ?></span>
     <form action="index.php?action=connection" method="post">
