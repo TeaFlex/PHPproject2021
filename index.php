@@ -24,7 +24,7 @@ class IndexRouter {
             'film' => new FilmController(),
             'filmform' => new FilmFormController(),
             'home' => new HomeController(),
-            'error' => new ErrorController()
+            //'error' => new ErrorController()
         ];
 
         $page = &$_GET['page'];
@@ -32,8 +32,6 @@ class IndexRouter {
         $connected = &$_SESSION['user'];
         $errormsg = &$_SESSION['error'];
         $successmsg = &$_SESSION['success'];
-
-        
 
         //handle the actions of each pages
         if(isset($action) && $action) {
@@ -48,7 +46,7 @@ class IndexRouter {
         if(isset($page) && $page) {
             $page = strtolower($page);
             if(!$this->isInControllers($page)) 
-                $page = "home";
+                BaseController::redirectToPage("home");
             $this->controllers[$page]->index();
         }
         else
