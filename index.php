@@ -29,9 +29,11 @@ class IndexRouter {
 
         $page = &$_GET['page'];
         $action = &$_GET['action'];
-        $connected = &$_SESSION['connected'];
+        $connected = &$_SESSION['user'];
         $errormsg = &$_SESSION['error'];
         $successmsg = &$_SESSION['success'];
+
+        
 
         //handle the actions of each pages
         if(isset($action) && $action) {
@@ -57,6 +59,10 @@ class IndexRouter {
             if($page != "connection" && $page != "registration")
                 BaseController::redirectToPage("connection");
         }
+        else {
+            if($page == "connection" || $page == "registration")
+                BaseController::redirectToPage("home");
+        }
         
         //clear messages
         $errormsg = null;
@@ -76,6 +82,5 @@ class IndexRouter {
 try {
     new IndexRouter();
 } catch (\Throwable $th) {
-    $_SESSION['error'] = $th;
-    BaseController::redirectToPage('error');
+    BaseController::getView('error', $th);
 }

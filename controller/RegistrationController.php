@@ -31,8 +31,6 @@ class RegistrationController extends BaseController {
             if($fields['pwd'] != $fields['rpwd'])
                 throw new Exception("La confirmation du mot de passe n'est pas identique au mot de passe.");
 
-            //TODO tester préexsitence mail
-
         } catch (\Throwable $th) {
             $_SESSION['error'] = $th->getMessage();
             self::redirectToPage("registration");

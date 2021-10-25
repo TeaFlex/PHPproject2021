@@ -28,7 +28,7 @@ class AccessSQL {
     }
 
     function getAllEntries(string $table) {
-        $sql = "SELECT * from $table";
+        $sql = "SELECT * from $table;";
         $req = $this->db->prepare($sql);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_OBJ);

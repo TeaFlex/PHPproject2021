@@ -1,3 +1,14 @@
+html * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form {
+    display: inline-block;
+    padding: 1em;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+}
+
 form * {
     display: block;
     width: auto;
@@ -5,6 +16,8 @@ form * {
 
 form input {
     margin-bottom: 0.5em;
+    border-radius: 3px;
+    border: black 1px solid;
 }
 
 form label, form input[type="submit"] {
@@ -17,4 +30,19 @@ form label, form input[type="submit"] {
 
 .success {
     color: green;
+}
+
+.center, .flex{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+}
+
+.full-h {
+    min-height: 100vh;
 }
