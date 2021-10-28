@@ -43,6 +43,7 @@ CREATE TABLE Movies(
    movie_poster VARCHAR(50),
    movie_duration TIME NOT NULL,
    movie_summary VARCHAR(50),
+   movie_year INT UNSIGNED NOT NULL,
    movie_score DECIMAL(2,1) NOT NULL,
    country_id INT NOT NULL,
    PRIMARY KEY(movie_id),

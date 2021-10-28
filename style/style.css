@@ -24,6 +24,10 @@ form label, form input[type="submit"] {
     user-select: none;
 }
 
+form label {
+    text-decoration: underline;
+}
+
 .error {
     color: red;
 }
@@ -47,6 +51,15 @@ form label, form input[type="submit"] {
     min-height: 100vh;
 }
 
+.checkboxes {
+    flex-flow: row wrap;
+    user-select: none;
+}
+
+.checkboxes input {
+    margin: 0;
+    display: inline;
+}
 .elephant {
     animation-name: running;
     animation-duration: 10s;
