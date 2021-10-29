@@ -18,6 +18,7 @@ class FilmFormController extends BaseController {
         $sql = null;
         self::getView($_GET['page'], $data);
     }
+
     function handler() {
         
         $fields = [
@@ -38,6 +39,9 @@ class FilmFormController extends BaseController {
             "movie_poster" => &$_POST['movie_poster'],
         ];
 
+        $file = &$_FILES["movie_poster"];
+        $target_folder = "assets/gallery/";
+
         try {
             foreach ($fields as &$value) {
                 if(empty($value) || !isset($value))
@@ -45,16 +49,35 @@ class FilmFormController extends BaseController {
                 if(gettype($value) == "string")
                     self::sanitize($value);
             }
+
+            if(!$file['error']) {
+                if(!preg_match("/^image\/(png|gif|jpeg)$/m", $file['type']))
+                throw new Exception("Le fichier doit être une image !");
+            
+                if($file['size'] > 400000)
+                    throw new Exception("L'image est trop volumineuse !");
+
+                if(strlen($file['name']) > 30)
+                    throw new Exception("Le nom de l'image est trop long !");
+                
+                $file["name"] = self::sanitize($file["name"]);
+            }
+
         } catch (\Throwable $th) {
             $_SESSION['error'] = $th->getMessage();
             self::redirectToPage("filmform");
+        }
+
+        if(!$file['error']) {
+            if(!move_uploaded_file($file["tmp_name"], $target_folder.$file["name"]))
+                throw new Exception("Error while uploading the file.");
         }
 
         $sql = new AccessSQL();
         $sql->init();
         $sql->insertInto('movies', [
             "movie_title" => $fields['movie_title'],
-            //"movie_poster" => null,
+            "movie_poster" => (!empty($file["name"]))?$file["name"]: null,
             "movie_year" => $fields['movie_year'],
             "movie_duration" => $fields['movie_duration'],
             "movie_summary" => $facultatives['movie_summary'],

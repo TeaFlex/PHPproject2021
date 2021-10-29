@@ -36,7 +36,7 @@ form label {
     color: green;
 }
 
-.center, .flex{
+.center, .flex, .noposter{
     display: flex;
     flex-flow: row nowrap;
 }
@@ -65,6 +65,36 @@ form label {
     animation-duration: 10s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+.noposter {
+    background-color: gray;
+    height: 95%;
+    color: rgb(206, 206, 206);
+    align-items: center;
+    justify-content: center;
+}
+
+.noposter svg {
+    width: 30%;
+}
+
+.gallery {
+    width: 100%;
+    flex-flow: row wrap;
+}
+
+.gallery figure {
+    width: 25%;
+}
+
+figure img, figure .noposter {
+    width: 100%;
+    border-radius: 5px;
+}
+
+figcaption {
+    text-align: center;
 }
 
 @keyframes running {
