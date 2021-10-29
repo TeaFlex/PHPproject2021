@@ -13,11 +13,20 @@ abstract class BaseController {
      * Method executed when a page is requested.
      * By default, return the view associated to the controller
      */
-    function index() {
+    function index(array $toappend = []) {
+        $messages = [
+            'error' => null,
+            'success' => null
+        ];
+
+        $messages = array_merge_recursive($messages, $toappend);
+
+        if(isset($_SESSION['success']) && $_SESSION['success'])
+            $messages['success'] = $_SESSION['success'];
         if(isset($_SESSION['error']) && $_SESSION['error'])
-            self::getView($_GET['page'], $_SESSION['error']);
-        else
-            self::getView($_GET['page']);
+            $messages['error'] = $_SESSION['error'];
+        
+        self::getView($_GET['page'], $messages);
     }
     
     /**

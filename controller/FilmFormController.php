@@ -3,12 +3,11 @@ include_once './controller/BaseController.php';
 
 class FilmFormController extends BaseController {
 
-    function index() {
+    function index(array $toappend = []) {
         $sql = new AccessSQL();
         $sql->init();
 
         $data = [
-            'error' => (isset($_SESSION['error']))? $_SESSION['error']: null,
             'actors' => $sql->getAllEntries("actors"),
             'languages' => $sql->getAllEntries("languages"),
             'genres' => $sql->getAllEntries("genres"),
@@ -16,7 +15,7 @@ class FilmFormController extends BaseController {
         ];
 
         $sql = null;
-        self::getView($_GET['page'], $data);
+        parent::index($data);
     }
 
     function handler() {

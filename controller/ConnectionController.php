@@ -3,20 +3,6 @@ include_once './controller/BaseController.php';
 
 class ConnectionController extends BaseController {
 
-    function index() {
-        $messages = [
-            'error' => null,
-            'success' => null
-        ];
-
-        if(isset($_SESSION['success']) && $_SESSION['success'])
-            $messages['success'] = $_SESSION['success'];
-        if(isset($_SESSION['error']) && $_SESSION['error'])
-            $messages['error'] = $_SESSION['error'];
-        
-        self::getView($_GET['page'], $messages);
-    }
-
     function handler() {
         $fields = [
             'email' => &$_POST['email'],
