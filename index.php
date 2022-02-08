@@ -41,17 +41,8 @@ class IndexRouter {
             if($this->isInControllers($action)) 
                 $this->controllers[$action]->handler();
         }
-        
-        //handle the view of each pages
-        if(isset($page) && $page) {
-            $page = strtolower($page);
-            if(!$this->isInControllers($page)) 
-                BaseController::redirectToPage("home");
-            $this->controllers[$page]->index();
-        }
-        else
-            BaseController::redirectToPage("home");
-            
+
+        //TODO: check connection on actions
         //check the connection
         if(!(isset($connected) && $connected)) {
             if($page != "connection" && $page != "registration")
@@ -61,6 +52,14 @@ class IndexRouter {
             if($page == "connection" || $page == "registration")
                 BaseController::redirectToPage("home");
         }
+        
+        //handle the view of each pages
+        if(isset($page) && $page && $this->isInControllers($page)) {
+            $page = strtolower($page);
+            $this->controllers[$page]->index();
+        }
+        else
+            BaseController::redirectToPage("home");
         
         //clear messages
         $errormsg = null;

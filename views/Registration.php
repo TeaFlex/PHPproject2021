@@ -1,6 +1,6 @@
 <div class="center">
     <h3>Inscription</h3>
-    <span class="error"><?= $data ?></span>
+    <span class="error"><?= $data['error'] ?></span>
     <form action="index.php?action=registration" method="post">
         <label for="pseudo">Pseudo:</label>
         <input type="text" name="pseudo" id="pseudo"/>

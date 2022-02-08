@@ -28,6 +28,18 @@ form label {
     text-decoration: underline;
 }
 
+.good {
+    background-color: green;
+}
+
+.bad {
+    background-color: red;
+}
+
+.average {
+    background-color: orange;
+}
+
 .error {
     color: red;
 }
@@ -88,13 +100,50 @@ form label {
     width: 25%;
 }
 
-figure img, figure .noposter {
+figure img, figure .noposter, .show img, .show .noposter{
     width: 100%;
     border-radius: 5px;
 }
 
+.show {
+    width: 30%;
+}
+
 figcaption {
     text-align: center;
+}
+
+.infos {
+    width: 40%;
+}
+
+.infos>h5 {
+    margin: 1em 0 0 0;
+}
+
+.infos>p {
+    margin: 0 0 1em 0;
+}
+
+.film>* {
+    padding: 1em;
+}
+
+.movie_title {
+    padding: 1em 0 0 1em;
+}
+
+.score {
+    width: 100px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.scoreblock {
+    margin-right: 2%;
+    width: 8%;
+    height: 100%;
+    display: inline-block;
 }
 
 @keyframes running {

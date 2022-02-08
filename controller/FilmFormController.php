@@ -26,8 +26,6 @@ class FilmFormController extends BaseController {
             "available_in" => &$_POST['available_in'],
             "movie_score" => &$_POST['movie_score'],
             "movie_duration" => &$_POST['movie_duration'],
-            //"movie_summary" => &$_POST['movie_summary'],
-            //"movie_poster" => &$_POST['movie_poster'],
             "movie_genre" => &$_POST['movie_genre'],
             "movie_actors" => &$_POST['movie_actors'],
             "country_id" => &$_POST['country_id'],
@@ -51,13 +49,18 @@ class FilmFormController extends BaseController {
 
             if(!$file['error']) {
                 if(!preg_match("/^image\/(png|gif|jpeg)$/m", $file['type']))
-                throw new Exception("Le fichier doit être une image !");
+                    throw new Exception("Le fichier doit être une image !");
             
                 if($file['size'] > 400000)
                     throw new Exception("L'image est trop volumineuse !");
 
                 if(strlen($file['name']) > 30)
                     throw new Exception("Le nom de l'image est trop long !");
+
+                if(file_exists($target_folder.$file["name"])) {
+                    $parts = pathinfo($file["name"]);
+                    $file["name"] = $parts["filename"]."_.".$parts["extension"];
+                }
                 
                 $file["name"] = self::sanitize($file["name"]);
             }
